@@ -4,6 +4,23 @@
 }
 
 .page-reader {
+  // 文章样式
+  .mdui-container {
+     .mdui-card {
+       @padding: 24px;
+       .mdui-card-primary {
+         padding: (@padding * 1.5) @padding @padding @padding;
+         .mdui-card-primary-title {
+           font-size: 36px;
+           line-height: 60px;
+           text-align: center;
+         }
+       }
+       .mdui-card-content {
+         padding: @padding;
+       }
+     }
+  }
   // 侧边栏 list 样式
   .mdui-drawer {
     white-space: normal;
