@@ -1,9 +1,9 @@
 {
   "name": "oi-blog-reader",
   "version": "0.0.0",
-	"author": "memset0",
+  "author": "memset0",
   "private": true,
-	"license": "GNU GPL V3",
+  "license": "GNU GPL V3",
   "scripts": {
     "start": "node ./bin/www"
   },
