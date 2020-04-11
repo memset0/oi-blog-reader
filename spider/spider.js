@@ -36,6 +36,7 @@ function spiderPostPage(url, blog, config) {
       }
       let postData = {
         url: url,
+        author: config.author,
         id: blog.methods.post.id(url),
         title: blog.methods.post.title($),
         time: blog.methods.post.time($),
