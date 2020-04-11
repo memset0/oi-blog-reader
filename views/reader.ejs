@@ -1,0 +1,31 @@
+<% this.title = title %>
+<% this.enable_drawer = true %>
+
+<% include header %>
+<% include reader-drawer %>
+
+<div class="mdui-container">
+
+  <% let currentPost = utils.queryPost(archive[0].id); %>
+  <div class="mdui-card">
+    <div class="mdui-card-primary">
+      <div class="mdui-card-primary-title" id="postTitle"><%= currentPost.title %></div>
+      <div class="mdui-card-primary-subtitle"></div>
+    </div>
+    
+    <div class="mdui-card-content" id="postContent">
+      <%- currentPost.content %> 
+    </div>
+    
+    <!-- <div class="mdui-card-actions">
+      <button class="mdui-btn mdui-ripple">action 1</button>
+      <button class="mdui-btn mdui-ripple">action 2</button>
+      <button class="mdui-btn mdui-btn-icon mdui-float-right"><i class="mdui-icon material-icons">expand_more</i></button>
+    </div> -->
+    
+  </div>
+
+</div>
+
+<% this.extendScripts = ['reader'] %>
+<% include footer %>

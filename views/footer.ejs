@@ -1,0 +1,13 @@
+  </body>
+
+  <script type="text/javascript" src="/javascripts/lib/mdui.min.js"></script>
+  <script type="text/javascript" src="/javascripts/lib/axios.min.js"></script>
+  <script type="text/javascript" src="/javascripts/lib/jquery.min.js"></script>
+
+  <% if (this.extendScripts) { %>
+    <% this.extendScripts.forEach(script => { %>
+    <script type="text/javascript" src="/javascripts/<%= script %>.js"></script>
+    <% }) %>
+  <% } %>
+
+</html>
