@@ -4,6 +4,7 @@
 }
 
 .page-reader {
+	// 侧边栏 list 样式
 	.mdui-drawer {
 		white-space: normal;
 		.mdui-list {
@@ -11,7 +12,6 @@
 				.mdui-list-item-title {
 					height: 20px;
 					-webkit-line-clamp: 1;
-
 					display: -webkit-box;
 					overflow: hidden;
 					text-overflow: ellipsis;
@@ -20,11 +20,39 @@
 				.mdui-list-item-text {
 					height: 80px;
 					-webkit-line-clamp: 4;
-
 					display: -webkit-box;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					-webkit-box-orient: vertical;
+				}
+			}
+		}
+	}
+	// 侧边栏 chip 样式
+	.mdui-list {
+		.mdui-chip-group {
+			margin-left: -4px;
+			margin-right: -4px;
+			margin-top: 4px;
+			.mdui-chip {
+				@height: 24px;
+				margin: 0;
+				height: @height;
+				border-radius: @height / 2;
+				margin-right: 4px;
+				.mdui-chip-icon {
+					width: @height;
+					height: @height;
+					line-height: @height;
+					.mdui-icon {
+						font-size: @height - 8px;
+					}
+				}
+				.mdui-chip-title {
+					height: @height;
+					line-height: @height;
+					padding-left: @height * 3 / 8 - 4px;
+					padding-right: @height * 3 / 8;
 				}
 			}
 		}
