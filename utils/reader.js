@@ -7,7 +7,7 @@ let db = lowdb(new FileSync(path.join(__dirname, "../data/posts.json")));
 
 function listPosts() {
   let result = [];
-  db.sortBy(o => o.time)
+  db.sortBy(o => -o.time)
     .each(val => result.push(val))
     .value();
   return result;
