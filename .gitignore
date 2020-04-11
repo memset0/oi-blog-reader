@@ -1,5 +1,6 @@
 data
 config
+public/source/*.html
 
 # Logs
 logs
