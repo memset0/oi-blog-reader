@@ -38,12 +38,13 @@ function spiderPostPage(url, blog, config) {
         url: url,
         id: blog.methods.post.id(url),
         title: blog.methods.post.title($),
-        date: blog.methods.post.date($),
+        time: blog.methods.post.time($),
       };
       let content = blog.methods.post.content($);
       writePostFile(postData.id, content);
       console.log(url);
       postData.summary = content
+        .replace('\n', ' ')
         .replace(/<[\s\S]*?>/g, ' ')
         .replace(/ +/g, ' ')
         .slice(0, 200);
