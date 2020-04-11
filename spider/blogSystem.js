@@ -1,7 +1,7 @@
 class BlogSystem {
-	constructor(name, methods) {
-		this.name = name;
-		this.methods = methods;
+  constructor(name, methods) {
+    this.name = name;
+    this.methods = methods;
   }
 }
 
