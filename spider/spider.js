@@ -1,12 +1,9 @@
 const _ = require("lodash");
 const fs = require("fs");
 const path = require("path");
+const moment = require("moment");
 const cheerio = require("cheerio");
 const superagent = require("superagent");
-
-const blogSystem = {
-  cnblogs: require("./methods/cnblogs.js"),
-};
 
 let db;
 
@@ -22,7 +19,7 @@ function writePostFile(id, html) {
 }
 
 function pushPostData(data) {
-  console.log(data);
+  // console.log(data);
   db.set(data.id, data).write();
 }
 
@@ -30,6 +27,7 @@ function spiderPostPage(url, blog, config) {
   superagent
     .get(url)
     .then(res => {
+      console.log('post', url);
       const $ = cheerio.load(res.text, { decodeEntities: false });
       if (!blog.methods.post.check($)) {
         return;
@@ -37,13 +35,16 @@ function spiderPostPage(url, blog, config) {
       let postData = {
         url: url,
         author: config.author,
-        id: blog.methods.post.id(url),
+        id: blog.methods.post.id(url, config.author),
         title: blog.methods.post.title($),
         time: blog.methods.post.time($),
       };
+      if (moment(postData.time, 'x').isBefore(config.time_limit)) {
+        config.achieveTimeLimit = true;
+        return;
+      }
       let content = blog.methods.post.content($);
       writePostFile(postData.id, content);
-      console.log(url);
       postData.summary = content
         .replace('\n', ' ')
         .replace(/<[\s\S]*?>/g, ' ')
@@ -57,12 +58,13 @@ function spiderArchivePage(url, blog, config) {
   superagent
     .get(url)
     .then(res => {
+      console.log('archive', url);
       const $ = cheerio.load(res.text, { decodeEntities: false });
       blog.methods.archive.postList($).forEach(post => {
         spiderPostPage(post.url, blog, config);
       });
       let nextPageLink = blog.methods.archive.nextPageLink($);
-      if (nextPageLink) {
+      if (nextPageLink && !config.achieveTimeLimit) {
         spiderArchivePage(nextPageLink, blog, config);
       }
     })
@@ -72,15 +74,6 @@ if (require.main === module) {
   const lowdb = require("lowdb");
   const FileSync = require("lowdb/adapters/FileSync");
   setDatabase(lowdb(new FileSync(path.join(__dirname, "../data/posts.json"))));
-
-  spiderArchivePage(
-    "https://www.cnblogs.com/zhoushuyu",
-    blogSystem.cnblogs,
-    {
-      author: "zhoushuyu",
-      dateLimit: 0
-    },
-  );
 }
 
 module.exports = {

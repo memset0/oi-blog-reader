@@ -21,6 +21,7 @@
     "lowdb": "^1.0.0",
     "moment": "^2.24.0",
     "morgan": "~1.9.1",
-    "superagent": "^5.2.2"
+    "superagent": "^5.2.2",
+    "yaml": "^1.8.3"
   }
 }

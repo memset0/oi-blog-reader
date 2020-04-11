@@ -9,6 +9,7 @@ function listPosts() {
   let result = [];
   db.sortBy(o => -o.time)
     .each(val => result.push(val))
+    .take(100)
     .value();
   return result;
 }
