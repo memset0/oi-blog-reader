@@ -1,20 +1,20 @@
 <% this.title = title %>
-<% this.enable_drawer = true %>
+<% this.view = 'reader' %>
 
 <% include header %>
 <% include reader-drawer %>
 
 <div class="mdui-container">
 
-  <% let currentPost = utils.queryPost(archive[0].id); %>
+  <% let post = utils.queryPost(currentPost) %>
   <div class="mdui-card">
     <div class="mdui-card-primary">
-      <div class="mdui-card-primary-title" id="postTitle"><%= currentPost.title %></div>
+      <div class="mdui-card-primary-title" id="postTitle"><%= post.title %></div>
       <div class="mdui-card-primary-subtitle"></div>
     </div>
     
     <div class="mdui-card-content" id="postContent">
-      <%- currentPost.content %> 
+      <%- post.content %> 
     </div>
     
     <!-- <div class="mdui-card-actions">
@@ -27,5 +27,5 @@
 
 </div>
 
-<% this.extendScripts = ['reader'] %>
+<% this.extendScripts = [ 'reader' ] %>
 <% include footer %>

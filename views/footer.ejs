@@ -1,30 +1,34 @@
   </body>
 
+  <script type="text/javascript" src="/javascripts/lib/jquery.min.js"></script>
+
   <!-- latex support -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0-rc.1/katex.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0-rc.1/katex.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0-rc.1/contrib/auto-render.min.js"></script>
   <script>
-    let renderLatex = () => renderMathInElement(document.body,
-      {
+    let renderLatex = () => {
+      renderMathInElement(document.body, {
         delimiters: [
-          { left: "$$", right: "$$", display: true },
-          { left: "$", right: "$", display: false }
+          { left: "$$", right: "$$", display: true, throwOnError: false },
+          { left: "\\[", right: "\\]", display: true, throwOnError: false },
+          { left: "$", right: "$", display: false, throwOnError: false },
+          { left: "\\(", right: "\\)", display: false, throwOnError: false },
         ]
-      }
-    )
+      })
+      $('.katex').each(function () {
+        $(this).html(' ' + $(this).html() + ' ')
+      })
+    }
     renderLatex()
   </script>
   <!-- latex support -->
 
   <script type="text/javascript" src="/javascripts/lib/mdui.min.js"></script>
   <script type="text/javascript" src="/javascripts/lib/axios.min.js"></script>
-  <script type="text/javascript" src="/javascripts/lib/jquery.min.js"></script>
 
-  <% if (this.extendScripts) { %>
-    <% this.extendScripts.forEach(script => { %>
-    <script type="text/javascript" src="/javascripts/<%= script %>.js"></script>
-    <% }) %>
+  <% if (this.view == 'reader') { %>
+    <script type="text/javascript" src="/javascripts/reader.js"></script>
   <% } %>
 
 </html>

@@ -3,25 +3,29 @@
 	padding-bottom: 40px;
 }
 
-.reader-drawer {
-	white-space: normal;
-	.mdui-list {
-		.mdui-list-item {
-			.overflow() {
-				display: -webkit-box;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				-webkit-box-orient: vertical;
-			}
-			.mdui-list-item-title {
-				height: 20px;
-				-webkit-line-clamp: 1;
-				.overflow();
-			}
-			.mdui-list-item-text {
-				height: 60px;
-				-webkit-line-clamp: 3;
-				.overflow();
+.page-reader {
+	.mdui-drawer {
+		white-space: normal;
+		.mdui-list {
+			.mdui-list-item {
+				.mdui-list-item-title {
+					height: 20px;
+					-webkit-line-clamp: 1;
+
+					display: -webkit-box;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					-webkit-box-orient: vertical;
+				}
+				.mdui-list-item-text {
+					height: 80px;
+					-webkit-line-clamp: 4;
+
+					display: -webkit-box;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					-webkit-box-orient: vertical;
+				}
 			}
 		}
 	}

@@ -6,7 +6,10 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body class="mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-appbar-with-toolbar
-    <%= this.enable_drawer ? 'mdui-drawer-body-left' : '' %>
+    <% if (this.view == 'reader') { %>
+      mdui-drawer-body-left
+    <% } %>
+    page-<%= this.view %>
   ">
 
 <div class="mdui-appbar mdui-appbar-fixed">
