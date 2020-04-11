@@ -27,6 +27,8 @@
 
   <script type="text/javascript" src="/javascripts/lib/mdui.min.js"></script>
   <script type="text/javascript" src="/javascripts/lib/axios.min.js"></script>
+  <script type="text/javascript" src="/javascripts/lib/nprogress.min.js"></script>
+  <script> NProgress.configure({ parent: '.mdui-container>.mdui-card', minimum: 0.2 }); </script>
 
   <% if (this.view == 'reader') { %>
     <script type="text/javascript" src="/javascripts/reader.js"></script>

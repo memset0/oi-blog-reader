@@ -1,5 +1,6 @@
 function load(id) {
-  console.log('load', id);
+  console.log('load', id)
+  NProgress.start()
   axios.post('/reader/post', {
       id: id
     })
@@ -7,7 +8,8 @@ function load(id) {
       console.log(res.data)
       $('#postTitle').text(res.data.title)
       $('#postContent').html(res.data.content)
-      renderLatex()
       history.pushState({}, '', `/reader/${res.data.id}`)
+      renderLatex()
+      NProgress.done()
     });
 }
