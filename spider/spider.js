@@ -74,9 +74,10 @@ if (require.main === module) {
   setDatabase(lowdb(new FileSync(path.join(__dirname, "../data/posts.json"))));
 
   spiderArchivePage(
-    "https://www.cnblogs.com/supy/",
+    "https://www.cnblogs.com/zhoushuyu",
     blogSystem.cnblogs,
     {
+      author: "zhoushuyu",
       dateLimit: 0
     },
   );

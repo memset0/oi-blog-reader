@@ -8,14 +8,16 @@ module.exports = new BlogSystem(
     archive: {
       postList: $ => {
         let result = [];
-        $('.postTitle .postTitle2').each(function() {
+        $('.postTitle .postTitle2').each(function () {
           result.push({
             url: $(this).attr('href')
           });
         });
         return result;
       },
-      nextPageLink: $ => $("#nav_next_page a").attr('href'),
+      nextPageLink: $ => ($("#nav_next_page a").attr('href') ||
+        $("#homepage_top_pager .pager a:last-child").attr('href') ||
+        $("#homepage_bottom_pager .pager a:last-child").attr('href')),
     },
     post: {
       id: url => ('cnblogs-' + url.match(/([0-9]+).html$/)[1]),
