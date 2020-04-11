@@ -9,7 +9,9 @@ module.exports = new BlogSystem(
       postList: $ => {
         let result = [];
         $('.postTitle .postTitle2').each(function() {
-          result.push($(this).attr('href'));
+          result.push({
+            url: $(this).attr('href')
+          });
         });
         return result;
       },
@@ -17,6 +19,7 @@ module.exports = new BlogSystem(
     },
     post: {
       id: url => ('cnblogs' + url.match(/([0-9]+).html$/)[1]),
+      check: $ => ($("title").text() != "博文阅读密码验证 - 博客园"),
       title: $ => $("#cb_post_title_url").text(),
       date: $ => moment($("#post-date").text(), "YYYY-MM-DD HH:mm").format("x"),
       content: $ => {

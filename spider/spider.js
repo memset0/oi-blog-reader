@@ -8,53 +8,80 @@ const blogSystem = {
   cnblogs: require("./methods/cnblogs.js"),
 };
 
+let db;
+
+function setDatabase(currentDb) {
+  db = currentDb;
+  db.defaults({});
+}
+
 function writePostFile(id, html) {
   fs.writeFile(path.join(__dirname, `../public/source/${id}.html`), html, "utf8", err => {
     if (err) throw err;
   });
 }
 
-function spiderPostPage(url, config, blog) {
+function pushPostData(data) {
+  console.log(data);
+  db.set(data.id, data).write();
+}
+
+function spiderPostPage(url, blog, config) {
   superagent
     .get(url)
     .then(res => {
-      console.log('post page', url);
       const $ = cheerio.load(res.text, { decodeEntities: false });
+      if (!blog.methods.post.check($)) {
+        return;
+      }
       let postData = {
+        url: url,
         id: blog.methods.post.id(url),
         title: blog.methods.post.title($),
         date: blog.methods.post.date($),
       };
       let content = blog.methods.post.content($);
       writePostFile(postData.id, content);
+      console.log(url);
       postData.summary = content
         .replace(/<[\s\S]*?>/g, ' ')
         .replace(/ +/g, ' ')
         .slice(0, 200);
-      console.log(postData);
+      pushPostData(postData);
     })
 }
 
-function spiderArchivePage(url, config, blog) {
+function spiderArchivePage(url, blog, config) {
   superagent
     .get(url)
     .then(res => {
-      console.log("archive page", url);
       const $ = cheerio.load(res.text, { decodeEntities: false });
-      blog.methods.archive.postList($).forEach(url => {
-        spiderPostPage(url, config, blog);
+      blog.methods.archive.postList($).forEach(post => {
+        spiderPostPage(post.url, blog, config);
       });
       let nextPageLink = blog.methods.archive.nextPageLink($);
       if (nextPageLink) {
-        spiderArchivePage(nextPageLink, config, blog);
+        spiderArchivePage(nextPageLink, blog, config);
       }
     })
 }
 
 if (require.main === module) {
+  const lowdb = require("lowdb");
+  const FileSync = require("lowdb/adapters/FileSync");
+  setDatabase(lowdb(new FileSync(path.join(__dirname, "../data/posts.json"))));
+
   spiderArchivePage(
-    "https://www.cnblogs.com/mathematician/",
-    {},
-    blogSystem.cnblogs
+    "https://www.cnblogs.com/supy/",
+    blogSystem.cnblogs,
+    {
+      dateLimit: 0
+    },
   );
+}
+
+module.exports = {
+  setDatabase: setDatabase,
+  postPage: spiderPostPage,
+  archivePage: spiderArchivePage
 }
