@@ -8,5 +8,6 @@ function load(id) {
       $('#postTitle').text(res.data.title)
       $('#postContent').html(res.data.content)
       renderLatex()
+      history.pushState({}, '', `/reader/${res.data.id}`)
     });
 }

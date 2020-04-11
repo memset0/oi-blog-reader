@@ -4,10 +4,22 @@ const router = express.Router();
 const utils = require('../utils/reader.js')
 
 router.get('/', function (req, res, next) {
+  const archive = utils.listPosts();
   res.render('reader', {
     title: '阅读器',
     utils: utils,
-    archive: utils.listPosts(),
+    archive: archive,
+    currentPost: archive[0].id,
+  });
+});
+
+router.get('/:id', function (req, res, next) {
+  const archive = utils.listPosts();
+  res.render('reader', {
+    title: '阅读器',
+    utils: utils,
+    archive: archive,
+    currentPost: req.params.id,
   });
 });
 
