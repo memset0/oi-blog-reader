@@ -6,13 +6,17 @@
           <div class="mdui-list-item-title mdui-list-item-one-line"><%= post.title %></div>
           <div class="mdui-list-item-text mdui-list-item-two-line"><%= post.summary %></div>
           <div class="mdui-chip-group">
-            <a class="mdui-chip" href="<%= post.url %>" target="_blank">
-              <span class="mdui-chip-icon mdui-color-theme-accent"><i class="mdui-icon material-icons">open_in_new</i></span>
-            </a>
             <div class="mdui-chip">
               <span class="mdui-chip-icon mdui-color-theme-accent"><i class="mdui-icon material-icons">person</i></span>
               <span class="mdui-chip-title"><%= post.author %></span>
             </div>
+            <div class="mdui-chip">
+              <span class="mdui-chip-icon mdui-color-theme-accent"><i class="mdui-icon material-icons">date_range</i></span>
+              <span class="mdui-chip-title"><%= utils.moment(post.time, 'x').format('YYYY-MM-DD HH:mm') %></span>
+            </div>
+            <a class="mdui-chip" href="<%= post.url %>" target="_blank">
+              <span class="mdui-chip-icon mdui-color-theme-accent"><i class="mdui-icon material-icons">open_in_new</i></span>
+            </a>
           </div>
         </div>
       </li>

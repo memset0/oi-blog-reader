@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const utils = require('../utils/reader.js')
+const utils = Object.assign(require('../utils/reader.js'), {
+  lodash: require('lodash'),
+  moment: require('moment'),
+})
 
 router.get('/', function (req, res, next) {
   const archive = utils.listPosts();
