@@ -19,7 +19,7 @@
     "less-middleware": "~2.2.1",
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "morgan": "~1.9.1",
     "superagent": "^5.2.2",
     "yaml": "^1.8.3"
